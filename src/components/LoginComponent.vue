@@ -11,28 +11,29 @@
   </template>
   
   <script>
-  import { ref } from "vue";
+
   import { auth } from "../utils/firebaseConfig";
   import { signInWithEmailAndPassword } from "firebase/auth";
   
   export default {
-    setup() {
-      const email = ref("");
-      const password = ref("");
-  
-      const login = async () => {
-        try {
-          await signInWithEmailAndPassword(auth, email.value, password.value);
-          alert("Login successful!");
-          this.$router.push('/dashboard'); // Redirect to the dashboard
-
-        } catch (error) {
+    data() {
+    return {
+      email: '',
+      password: '',
+    };
+  },
+  methods: {
+    login() {
+      signInWithEmailAndPassword(auth, this.email, this.password)
+        .then(() => {
+          alert('Login successful!');
+          this.$router.push('/dashboard'); // Navigate to the dashboard
+        })
+        .catch(error => {
           alert(error.message);
-        }
-      };
-  
-      return { email, password, login };
+        });
     },
-  };
+  },
+};
   </script>
   

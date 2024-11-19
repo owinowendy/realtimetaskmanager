@@ -8,9 +8,11 @@
   <script>
   import TaskBoard from "./TaskboardComponent.vue";
   
+  
   export default {
     components: {
       TaskBoard,
+      
     },
   };
   </script>
