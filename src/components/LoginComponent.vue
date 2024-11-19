@@ -24,6 +24,8 @@
         try {
           await signInWithEmailAndPassword(auth, email.value, password.value);
           alert("Login successful!");
+          this.$router.push('/dashboard'); // Redirect to the dashboard
+
         } catch (error) {
           alert(error.message);
         }
