@@ -4,7 +4,7 @@ import HomeComponent from "../components/HomeComponent.vue";
 import LoginComponent from "../components/LoginComponent.vue";
 import SignUp from "../components/SignUp.vue";
 import DashboardComponent from "../components/DashboardComponent.vue";
-import TaskboardComponent from "@/components/TaskboardComponent.vue";
+import TaskboardComponent from "../components/TaskboardComponent.vue";
 const routes = [
   { path: "/", name: "Home", component: HomeComponent },
 

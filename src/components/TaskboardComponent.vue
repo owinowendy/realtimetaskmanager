@@ -1,23 +1,16 @@
 <template>
-    <div class="task-board">
-      <div v-for="(tasks, status) in taskColumns" :key="status" class="task-column">
-        <h2>{{ status }}</h2>
-        <draggable
-          v-model="taskColumns[status]"
-          @end="onDragEnd"
-          class="task-list"
-          group="tasks"
-          animation="200"
-        >
-          <div v-for="task in tasks" :key="task.id" class="task-card">
-            <h3>{{ task.title }}</h3>
-            <p>{{ task.description }}</p>
+    <div>
+      <h1>To-Do</h1>
+      <draggable v-model="tasks">
+        <!-- Required item slot -->
+        <template #item="{ element }">
+          <div class="task-item">
+            {{ element.text }}
           </div>
-        </draggable>
-      </div>
+        </template>
+      </draggable>
     </div>
   </template>
-  
   <script>
   import draggable from "vuedraggable";
   
