@@ -47,6 +47,7 @@
   background-color: #e0e3e7; /* Soft background */
   font-family: Arial, sans-serif;
   padding: auto;
+  background-image: url(../assets/istockphoto-1371325578-1024x1024.jpg);
   }
   h2 {
   margin-top: 20px;
@@ -56,9 +57,10 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
   background-color: #fff;
+  font-weight: 100;
   }
   input{display: flex;
   flex-direction: column;
