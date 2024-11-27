@@ -47,7 +47,7 @@
   background-color: #e0e3e7; /* Soft background */
   font-family: Arial, sans-serif;
   padding: auto;
-  background-image: url(../assets/istockphoto-1371325578-1024x1024.jpg);
+ 
   }
   h2 {
   margin-top: 20px;

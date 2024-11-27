@@ -16,7 +16,6 @@
   .home {
     text-align: center;
     box-shadow: 0 12px 12px;
-    background-image: url(../assets/istockphoto-1371325578-1024x1024.jpg);
     font-size: large;
   }
   </style>

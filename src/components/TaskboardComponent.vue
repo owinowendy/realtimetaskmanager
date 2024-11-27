@@ -1,71 +1,73 @@
+
 <template>
     <div>
       <h1>To-Do</h1>
       <draggable v-model="tasks">
-        <!-- Required item slot -->
         <template #item="{ element }">
           <div class="task-item">
-            {{ element.text }}
+            {{ element.title }}
           </div>
         </template>
       </draggable>
+      <button @click="addTask">Add Task</button>
     </div>
   </template>
+  
   <script>
+  import { collection, getDocs, addDoc, updateDoc, deleteDoc, doc, onSnapshot } from "firebase/firestore";
+  import { db } from "@/firebase"; // Import Firestore instance
   import draggable from "vuedraggable";
   
   export default {
-    components: {
-      draggable,
-    },
+    components: { draggable },
     data() {
       return {
-        taskColumns: {
-          "To-Do": [
-            { id: 1, title: "Task 1", description: "This is the first task" },
-            { id: 2, title: "Task 2", description: "This is the second task" },
-          ],
-          "In Progress": [
-            { id: 3, title: "Task 3", description: "This task is in progress" },
-          ],
-          "Completed": [
-            { id: 4, title: "Task 4", description: "This task is completed" },
-          ],
-        },
+        tasks: [], // This will hold the Firestore tasks
       };
     },
+    mounted() {
+      this.fetchTasks();
+    },
     methods: {
-      onDragEnd(event) {
-        console.log("Task moved:", event);
+      async fetchTasks() {
+        const tasksCollection = collection(db, "tasks");
+  
+        // Listen for real-time updates
+        onSnapshot(tasksCollection, (snapshot) => {
+          this.tasks = snapshot.docs.map((doc) => ({
+            id: doc.id,
+            ...doc.data(),
+          }));
+        });
+      },
+      async addTask() {
+        const tasksCollection = collection(db, "tasks");
+        const newTask = {
+          title: "New Task",
+          description: "This is a new task",
+          status: "To-Do",
+        };
+  
+        await addDoc(tasksCollection, newTask); // Add task to Firestore
+      },
+      async updateTaskStatus(task, status) {
+        const taskDoc = doc(db, "tasks", task.id);
+        await updateDoc(taskDoc, { status }); // Update Firestore document
+      },
+      async deleteTask(task) {
+        const taskDoc = doc(db, "tasks", task.id);
+        await deleteDoc(taskDoc); // Delete task from Firestore
       },
     },
   };
   </script>
   
   <style scoped>
-  .task-board {
-    display: flex;
-    gap: 20px;
-  }
-  
-  .task-column {
-    flex: 1;
+  .task-item {
     padding: 10px;
     border: 1px solid #ccc;
-    border-radius: 8px;
-    background-color: #f9f9f9;
-  }
-  
-  .task-list {
-    min-height: 200px;
-  }
-  
-  .task-card {
-    padding: 10px;
-    margin-bottom: 10px;
-    background-color: #e3f2fd;
     border-radius: 5px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 5px;
   }
   </style>
   
